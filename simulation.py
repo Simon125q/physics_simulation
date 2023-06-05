@@ -1,68 +1,73 @@
 import math
 import matplotlib.pyplot as plt
-H = 0.5
-L = 1.3
+
+height = 0.5
+distance = 1.3
 frequency = 2000.0
-another_source = False
-omega = frequency * 2 * math.pi
-time = 20
-data_freq = 10000
-time_period = 1 / data_freq
+is_another_source = False
+angular_frequency = frequency * 2 * math.pi
+simulation_time = 20
+data_frequency = 10000
+time_period = 1 / data_frequency
 current_time = 0.0
 x_axis_data = []
 y_axis_data = []
-wave_length = 340.0 /frequency
-k = 2 * math.pi / wave_length
-y = -3.0
-y2 = -3.5
+wave_length = 340.0 / frequency
+wave_number = 2 * math.pi / wave_length
+initial_position1 = -3.0
+initial_position2 = -3.5
 speed = 0.4
 
-z2=0
+source2_amplitude = 0
 
-deciton = input("Do you want to simulate 2 sources? Y/N \n")
-if(deciton.upper() == "Y"):
-    another_source = True
-deciton = input("Do you want to provide your data? Y/N \n")
-if(deciton.upper() == "Y"):
-    time = float(input("Simulated time (secounds): \n"))
-    data_freq = float(input("How many measurements for 1 secound: \n"))
-    time_period = 1/data_freq
+decision = input("Do you want to simulate 2 sources? Y/N \n")
+if decision.upper() == "Y":
+    is_another_source = True
+
+decision = input("Do you want to provide your data? Y/N \n")
+if decision.upper() == "Y":
+    simulation_time = float(input("Simulated time (seconds): \n"))
+    data_frequency = float(input("How many measurements per second: \n"))
+    time_period = 1 / data_frequency
     frequency = float(input("Sound Frequency (Hz): \n"))
-    y = float(input("starting positon ('-' to the right, 0 excatly between microphones) (meters): \n"))
-    speed = float(input("speed of movement of the object (m/s): \n"))
-    if another_source:
-        y = float(input("starting positon of 2nd source ('-' to the right, 0 excatly between microphones) (meters): \n"))
+    initial_position1 = float(input("Starting position ('-' to the right, 0 exactly between microphones) (meters): \n"))
+    speed = float(input("Speed of movement of the object (m/s): \n"))
+    if is_another_source:
+        initial_position2 = float(
+            input("Starting position of the 2nd source ('-' to the right, 0 exactly between microphones) (meters): \n"))
 
+while current_time < simulation_time:
+    distance1 = math.sqrt(pow(distance / 2 - initial_position1, 2) + pow(height, 2))
+    distance2 = math.sqrt(pow(distance / 2 + initial_position1, 2) + pow(height, 2))
+    amplitude1 = 1.0 / distance1
+    amplitude2 = 1.0 / distance2
+    sound_wave1 = amplitude1 * math.cos(angular_frequency * current_time - wave_number * distance1)
+    sound_wave2 = amplitude2 * math.cos(angular_frequency * current_time - wave_number * distance2)
+    sound_intensity = sound_wave1 + sound_wave2
 
-while(current_time<time):
-    x1 = math.sqrt(pow(L/2-y, 2) + pow(H, 2))
-    x2 = math.sqrt(pow(L/2+y, 2) + pow(H, 2))
-    a1 = 1.0/x1
-    a2 = 1.0/x2
-    z = a1*math.cos(omega*current_time - k*x1) + a2*math.cos(omega*current_time - k*x2)
-    if another_source:
-        x12 = math.sqrt(pow(L/2-y2, 2) + pow(H, 2))
-        x22 = math.sqrt(pow(L/2+y2, 2) + pow(H, 2))
-        a12 = 1.0/x12
-        a22 = 1.0/x22
-        z2 = a12*math.cos(omega*current_time - k*x12) + a22*math.cos(omega*current_time - k*x22)
-    z = z+z2
-    z = pow(z, 2)
+    if is_another_source:
+        distance3 = math.sqrt(pow(distance / 2 - initial_position2, 2) + pow(height, 2))
+        distance4 = math.sqrt(pow(distance / 2 + initial_position2, 2) + pow(height, 2))
+        amplitude3 = 1.0 / distance3
+        amplitude4 = 1.0 / distance4
+        sound_wave3 = amplitude3 * math.cos(angular_frequency * current_time - wave_number * distance3)
+        sound_wave4 = amplitude4 * math.cos(angular_frequency * current_time - wave_number * distance4)
+        source2_amplitude = sound_wave3 + sound_wave4
+
+    sound_intensity += source2_amplitude
+    sound_intensity = pow(sound_intensity, 2)
+
     x_axis_data.append(current_time)
-    y_axis_data.append(z)
-    #print(z)
-    #print(current_time)
-    y += (speed / data_freq)
-    y2 +=(speed / data_freq)
+    y_axis_data.append(sound_intensity)
+
+    initial_position1 += (speed / data_frequency)
+    initial_position2 += (speed / data_frequency)
     current_time += time_period
 
 plt.plot(x_axis_data, y_axis_data, marker=',')
 
-
-plt.xlabel('time (s)')
+plt.xlabel('Time (s)')
 plt.ylabel('Sound Intensity')
-
 plt.title('Graph')
 
 plt.show()
-
