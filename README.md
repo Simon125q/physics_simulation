@@ -10,7 +10,7 @@ Program written in python with use of matplotlib module to predict and compare r
 
 ![App Screenshot](https://github.com/Simon125q/physics_simulation/blob/main/scr01.png)
 
-## ## Graph from simulation for 2 sources at frequency 1200 Hz
+## Graph from simulation for 2 sources at frequency 1200 Hz
 
 ![App Screenshot](https://github.com/Simon125q/physics_simulation/blob/main/scr01.png)
 
