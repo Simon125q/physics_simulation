@@ -1,4 +1,4 @@
-# Wave Interference simulation
+# Wave Interference Simulation
 
 Program written in python with use of matplotlib module to predict and compare results of physics experiment concerning wave interferometry
 
@@ -8,12 +8,12 @@ Program written in python with use of matplotlib module to predict and compare r
 
 ## Result from the experiment for the same data
 
-![App Screenshot](https://github.com/Simon125q/physics_simulation/blob/main/scr01.png)
+![App Screenshot](https://github.com/Simon125q/physics_simulation/blob/main/scr02.png)
 
 ## Graph from simulation for 2 sources at frequency 1200 Hz
 
-![App Screenshot](https://github.com/Simon125q/physics_simulation/blob/main/scr01.png)
+![App Screenshot](https://github.com/Simon125q/physics_simulation/blob/main/scr03.png)
 
 ## Result from the experiment for the same data
 
-![App Screenshot](https://github.com/Simon125q/physics_simulation/blob/main/scr01.png)
+![App Screenshot](https://github.com/Simon125q/physics_simulation/blob/main/scr04.png)
